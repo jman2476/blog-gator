@@ -1,10 +1,13 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
 	"os"
 
 	"github.com/jman2476/blog-gator/internal/config"
+	"github.com/jman2476/blog-gator/internal/database"
+	_ "github.com/lib/pq"
 )
 
 func main() {
@@ -15,10 +18,22 @@ func main() {
 	var pgrmState state
 	pgrmState.config = initConfig
 
+	db, err := sql.Open("postgres", pgrmState.config.DB_url)
+	if err != nil {
+		fmt.Println(
+			fmt.Errorf("Error establishing db connection: %w", err),
+		)
+		os.Exit(1)
+	}
+
+	dbQueries := database.New(db)
+	pgrmState.db = dbQueries
+
 	var cmdList = commands{
 		make(map[string]func(*state, command) error),
 	}
 	cmdList.register("login", handlerLogin)
+	cmdList.register("register", handlerRegister)
 
 	if len(os.Args) < 2 {
 		fmt.Println(
