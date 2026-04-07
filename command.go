@@ -8,11 +8,11 @@ type command struct {
 }
 
 type commands struct {
-	handlers map[string]func(*state, command) error
+	commandList map[string]func(*state, command) error
 }
 
 func (c *commands) run(s *state, cmd command) error {
-	function, ok := c.handlers[cmd.name]
+	function, ok := c.commandList[cmd.name]
 	if !ok {
 		return fmt.Errorf("Command %s not found", cmd.name)
 	}
@@ -21,5 +21,5 @@ func (c *commands) run(s *state, cmd command) error {
 }
 
 func (c *commands) register(name string, f func(*state, command) error) {
-	c.handlers[name] = f
+	c.commandList[name] = f
 }
