@@ -59,4 +59,5 @@ func (l commands) registerAll() {
 	l.register("login", handlerLogin)
 	l.register("register", handlerRegister)
 	l.register("reset", handlerReset)
+	l.register("users", handlerUsers)
 }
