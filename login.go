@@ -1,6 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"context"
+	"database/sql"
+	"fmt"
+	"os"
+)
 
 func handlerLogin(s *state, cmd command) error {
 	if len(cmd.arguments) == 0 {
@@ -8,11 +13,28 @@ func handlerLogin(s *state, cmd command) error {
 	}
 
 	username := cmd.arguments[0]
-	err := s.config.SetUser(username)
+
+	user, err := s.db.GetUser(
+		context.Background(),
+		sql.NullString{
+			String: username,
+			Valid:  true,
+		},
+	)
+	if err == sql.ErrNoRows {
+		fmt.Println(
+			fmt.Errorf("Username %s not in database", username),
+		)
+		os.Exit(1)
+	}
+
+	err = s.config.SetUser(username)
 	if err != nil {
 		return err
 	}
 
 	fmt.Printf("User has been set to %s\n", username)
+	fmt.Println(user)
+
 	return nil
 }
