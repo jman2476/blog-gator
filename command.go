@@ -17,12 +17,7 @@ func (c *commands) run(s *state, cmd command) error {
 		return fmt.Errorf("Command %s not found", cmd.name)
 	}
 
-	err := function(s, cmd)
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return function(s, cmd)
 }
 
 func (c *commands) register(name string, f func(*state, command) error) {
