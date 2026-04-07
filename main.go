@@ -32,8 +32,9 @@ func main() {
 	var cmdList = commands{
 		make(map[string]func(*state, command) error),
 	}
-	cmdList.register("login", handlerLogin)
-	cmdList.register("register", handlerRegister)
+	// cmdList.register("login", handlerLogin)
+	// cmdList.register("register", handlerRegister)
+	cmdList.registerAll()
 
 	if len(os.Args) < 2 {
 		fmt.Println(
@@ -52,6 +53,10 @@ func main() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
+}
 
-	// fmt.Printf("%s, %s\n", pgrmState.config.DB_url, pgrmState.config.Username)
+func (l commands) registerAll() {
+	l.register("login", handlerLogin)
+	l.register("register", handlerRegister)
+	l.register("reset", handlerReset)
 }
