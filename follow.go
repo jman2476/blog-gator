@@ -44,6 +44,12 @@ func handlerFollow(s *state, cmd command) error {
 		return err
 	}
 
-	fmt.Printf("%s :: %s", ff.UserName, ff.FeedName)
+	// fmt.Printf("%s :: %s", ff.UserName, ff.FeedName)
+	printFeedFollow(ff)
 	return nil
+}
+
+func printFeedFollow(ff database.CreateFeedFollowRow) {
+	fmt.Printf("User:		%s\n", ff.UserName)
+	fmt.Printf("Feed:		%s\n", ff.FeedName)
 }
