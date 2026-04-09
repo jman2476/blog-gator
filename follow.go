@@ -9,16 +9,9 @@ import (
 	"github.com/jman2476/blog-gator/internal/database"
 )
 
-func handlerFollow(s *state, cmd command) error {
+func handlerFollow(s *state, cmd command, user database.User) error {
 	if len(cmd.arguments) < 1 {
 		return fmt.Errorf("Need a url for the feed")
-	}
-
-	user, err := s.db.GetUser(
-		context.Background(), s.config.Username,
-	)
-	if err != nil {
-		return err
 	}
 
 	feed, err := s.db.GetFeedByURL(

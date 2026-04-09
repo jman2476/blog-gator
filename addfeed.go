@@ -9,15 +9,9 @@ import (
 	"github.com/jman2476/blog-gator/internal/database"
 )
 
-func handlerAddFeed(s *state, cmd command) error {
+func handlerAddFeed(s *state, cmd command, user database.User) error {
 	if len(cmd.arguments) < 2 {
 		return fmt.Errorf("Need 2 arguments: [title] [url]\n\rHave %d argument(s)", len(cmd.arguments))
-	}
-
-	user, err := s.db.GetUser(
-		context.Background(), s.config.Username)
-	if err != nil {
-		return err
 	}
 
 	feedArgs := database.CreateFeedParams{
