@@ -14,7 +14,7 @@ import (
 )
 
 const clearUsers = `-- name: ClearUsers :exec
-DELETE FROM users
+delete from users
 `
 
 func (q *Queries) ClearUsers(ctx context.Context) error {
@@ -53,8 +53,8 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 }
 
 const getUser = `-- name: GetUser :one
-SELECT id, created_at, updated_at, name FROM users
-WHERE name = $1
+select id, created_at, updated_at, name from users
+where name = $1
 `
 
 func (q *Queries) GetUser(ctx context.Context, name sql.NullString) (User, error) {
@@ -69,8 +69,25 @@ func (q *Queries) GetUser(ctx context.Context, name sql.NullString) (User, error
 	return i, err
 }
 
+const getUserByID = `-- name: GetUserByID :one
+select id, created_at, updated_at, name from users
+where id = $1
+`
+
+func (q *Queries) GetUserByID(ctx context.Context, id uuid.UUID) (User, error) {
+	row := q.db.QueryRowContext(ctx, getUserByID, id)
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.Name,
+	)
+	return i, err
+}
+
 const getUsers = `-- name: GetUsers :many
-SELECT id, created_at, updated_at, name FROM users
+select id, created_at, updated_at, name from users
 `
 
 func (q *Queries) GetUsers(ctx context.Context) ([]User, error) {
