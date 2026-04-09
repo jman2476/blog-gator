@@ -55,10 +55,10 @@ func handlerAddFeed(s *state, cmd command) error {
 }
 
 func printFeed(f database.Feed) {
-	fmt.Printf("ID:			  %s\n", f.ID)
-	fmt.Printf("Created At:   %s\n", f.CreatedAt)
-	fmt.Printf("Updated At:   %s\n", f.UpdatedAt)
-	fmt.Printf("Name: 		  %s\n", f.Name)
-	fmt.Printf("URL: 		  %s\n", f.Url)
-	fmt.Printf("User ID: 	  %s\n", f.UserID)
+	fmt.Printf("ID:			%s\n", f.ID)
+	fmt.Printf("Created At:		%s\n", f.CreatedAt)
+	fmt.Printf("Updated At:		%s\n", f.UpdatedAt)
+	fmt.Printf("Name:			%s\n", f.Name)
+	fmt.Printf("URL:			%s\n", f.Url)
+	fmt.Printf("User ID:		%s\n", f.UserID)
 }

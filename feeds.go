@@ -21,6 +21,7 @@ func handlerFeeds(s *state, cmd command) error {
 		}
 		fmt.Printf("Name: %s\nURL: %s\naddedby: %s\n",
 			feed.Name, feed.Url, user.Name)
+		printFeed(feed)
 	}
 
 	return nil

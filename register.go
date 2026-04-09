@@ -52,7 +52,7 @@ func handlerRegister(s *state, cmd command) error {
 
 func printUser(u database.User) {
 	fmt.Printf("ID:			%s\n", u.ID)
-	fmt.Printf("Username: 	%s\n", u.Name)
-	fmt.Printf("Created At: %s\n", u.CreatedAt)
-	fmt.Printf("Updated At: %s\n", u.UpdatedAt)
+	fmt.Printf("Username:			%s\n", u.Name)
+	fmt.Printf("Created At:			%s\n", u.CreatedAt)
+	fmt.Printf("Updated At:			%s\n", u.UpdatedAt)
 }
