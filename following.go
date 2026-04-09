@@ -2,18 +2,12 @@ package main
 
 import (
 	"context"
-	"database/sql"
 	"fmt"
 )
 
 func handlerFollowing(s *state, cmd command) error {
 	user, err := s.db.GetUser(
-		context.Background(),
-		sql.NullString{
-			String: s.config.Username,
-			Valid:  true,
-		},
-	)
+		context.Background(), s.config.Username)
 	if err != nil {
 		return err
 	}
@@ -24,7 +18,7 @@ func handlerFollowing(s *state, cmd command) error {
 	)
 
 	for _, feed := range ff {
-		fmt.Println(feed.FeedName.String)
+		fmt.Println(feed.FeedName)
 	}
 
 	return nil

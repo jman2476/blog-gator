@@ -20,7 +20,7 @@ func handlerFeeds(s *state, cmd command) error {
 			return err
 		}
 		fmt.Printf("Name: %s\nURL: %s\naddedby: %s\n",
-			feed.Name.String, feed.Url.String, user.Name.String)
+			feed.Name, feed.Url, user.Name)
 	}
 
 	return nil

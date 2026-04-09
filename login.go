@@ -15,12 +15,7 @@ func handlerLogin(s *state, cmd command) error {
 	username := cmd.arguments[0]
 
 	user, err := s.db.GetUser(
-		context.Background(),
-		sql.NullString{
-			String: username,
-			Valid:  true,
-		},
-	)
+		context.Background(), username)
 	if err == sql.ErrNoRows {
 		fmt.Println(
 			fmt.Errorf("Username %s not in database", username),

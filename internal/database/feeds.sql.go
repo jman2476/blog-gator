@@ -7,7 +7,6 @@ package database
 
 import (
 	"context"
-	"database/sql"
 	"time"
 
 	"github.com/google/uuid"
@@ -23,8 +22,8 @@ type CreateFeedParams struct {
 	ID        uuid.UUID
 	CreatedAt time.Time
 	UpdatedAt time.Time
-	Name      sql.NullString
-	Url       sql.NullString
+	Name      string
+	Url       string
 	UserID    uuid.UUID
 }
 
@@ -54,7 +53,7 @@ select id, created_at, updated_at, name, url, user_id from feeds
 where url = $1
 `
 
-func (q *Queries) GetFeedByURL(ctx context.Context, url sql.NullString) (Feed, error) {
+func (q *Queries) GetFeedByURL(ctx context.Context, url string) (Feed, error) {
 	row := q.db.QueryRowContext(ctx, getFeedByURL, url)
 	var i Feed
 	err := row.Scan(

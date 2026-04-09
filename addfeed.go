@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"database/sql"
 	"fmt"
 	"time"
 
@@ -16,11 +15,7 @@ func handlerAddFeed(s *state, cmd command) error {
 	}
 
 	user, err := s.db.GetUser(
-		context.Background(),
-		sql.NullString{
-			String: s.config.Username,
-			Valid:  true,
-		})
+		context.Background(), s.config.Username)
 	if err != nil {
 		return err
 	}
@@ -29,15 +24,9 @@ func handlerAddFeed(s *state, cmd command) error {
 		ID:        uuid.New(),
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
-		Name: sql.NullString{
-			String: cmd.arguments[0],
-			Valid:  true,
-		},
-		Url: sql.NullString{
-			String: cmd.arguments[1],
-			Valid:  true,
-		},
-		UserID: user.ID,
+		Name:      cmd.arguments[0],
+		Url:       cmd.arguments[1],
+		UserID:    user.ID,
 	}
 
 	feed, err := s.db.CreateFeed(

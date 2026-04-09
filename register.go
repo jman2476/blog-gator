@@ -19,12 +19,7 @@ func handlerRegister(s *state, cmd command) error {
 	username := cmd.arguments[0]
 
 	_, err := s.db.GetUser(
-		context.Background(),
-		sql.NullString{
-			String: username,
-			Valid:  true,
-		},
-	)
+		context.Background(), username)
 	if err != sql.ErrNoRows {
 		fmt.Println(
 			fmt.Errorf("Username %s is already in use", username),
@@ -36,10 +31,7 @@ func handlerRegister(s *state, cmd command) error {
 		ID:        uuid.New(),
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
-		Name: sql.NullString{
-			String: username,
-			Valid:  true,
-		},
+		Name:      username,
 	}
 	user, err := s.db.CreateUser(
 		context.Background(), createArgs)

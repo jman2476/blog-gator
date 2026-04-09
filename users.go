@@ -13,7 +13,7 @@ func handlerUsers(s *state, cmd command) error {
 	current := s.config.Username
 
 	for _, user := range users {
-		str := fmt.Sprint(user.Name.String)
+		str := fmt.Sprint(user.Name)
 		if str == current {
 			str += " (current)"
 		}

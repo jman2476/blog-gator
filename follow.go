@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"database/sql"
 	"fmt"
 	"time"
 
@@ -16,22 +15,14 @@ func handlerFollow(s *state, cmd command) error {
 	}
 
 	user, err := s.db.GetUser(
-		context.Background(),
-		sql.NullString{
-			String: s.config.Username,
-			Valid:  true,
-		},
+		context.Background(), s.config.Username,
 	)
 	if err != nil {
 		return err
 	}
 
 	feed, err := s.db.GetFeedByURL(
-		context.Background(),
-		sql.NullString{
-			String: cmd.arguments[0],
-			Valid:  true,
-		},
+		context.Background(), cmd.arguments[0],
 	)
 	if err != nil {
 		return nil
@@ -53,6 +44,6 @@ func handlerFollow(s *state, cmd command) error {
 		return err
 	}
 
-	fmt.Printf("%s :: %s", ff.UserName.String, ff.FeedName.String)
+	fmt.Printf("%s :: %s", ff.UserName, ff.FeedName)
 	return nil
 }
