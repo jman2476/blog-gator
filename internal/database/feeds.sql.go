@@ -13,13 +13,13 @@ import (
 	"github.com/google/uuid"
 )
 
-const addFeed = `-- name: AddFeed :one
+const createFeed = `-- name: CreateFeed :one
 insert into feeds (id, created_at, updated_at, name, url, user_id)
 values ($1,$2,$3,$4,$5,$6)
 returning id, created_at, updated_at, name, url, user_id
 `
 
-type AddFeedParams struct {
+type CreateFeedParams struct {
 	ID        uuid.UUID
 	CreatedAt time.Time
 	UpdatedAt time.Time
@@ -28,8 +28,8 @@ type AddFeedParams struct {
 	UserID    uuid.UUID
 }
 
-func (q *Queries) AddFeed(ctx context.Context, arg AddFeedParams) (Feed, error) {
-	row := q.db.QueryRowContext(ctx, addFeed,
+func (q *Queries) CreateFeed(ctx context.Context, arg CreateFeedParams) (Feed, error) {
+	row := q.db.QueryRowContext(ctx, createFeed,
 		arg.ID,
 		arg.CreatedAt,
 		arg.UpdatedAt,
