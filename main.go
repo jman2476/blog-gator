@@ -63,4 +63,6 @@ func (l commands) registerAll() {
 	l.register("agg", handlerAggrigate)
 	l.register("addfeed", handlerAddFeed)
 	l.register("feeds", handlerFeeds)
+	l.register("follow", handlerFollow)
+	l.register("following", handlerFollowing)
 }
