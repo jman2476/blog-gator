@@ -9,3 +9,13 @@ select * from feeds;
 -- name: GetFeedByURL :one
 select * from feeds
 where url = $1;
+
+-- name: MarkFeedFetched :exec
+update feeds
+set updated_at = $1
+and last_fetched_at = $1
+where id = $2;
+
+-- name: GetNextFeedToFetch :one
+select * from feeds
+order by last_fetched_at asc nulls first;
