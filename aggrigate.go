@@ -15,6 +15,11 @@ func handlerAggrigate(s *state, cmd command) error {
 		return fmt.Errorf("Error parsing duration: %w", err)
 	}
 
+	var min time.Duration = 5000000000
+	if timeBetweenRequests < min {
+		return fmt.Errorf("Cannot set time_between_requests to less than 5 seconds.")
+	}
+
 	ticker := time.NewTicker(timeBetweenRequests)
 	for ; ; <-ticker.C {
 		scrapeFeeds(s)
