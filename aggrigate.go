@@ -1,19 +1,24 @@
 package main
 
 import (
-	"context"
 	"fmt"
+	"time"
 )
 
 func handlerAggrigate(s *state, cmd command) error {
-	feedURL := "https://www.wagslane.dev/index.xml"
-
-	rss, err := fetchFeed(context.Background(), feedURL)
-	if err != nil {
-		return err
+	if len(cmd.arguments) < 1 {
+		return fmt.Errorf("Need a duration between requests for aggrigation to prevent spamming servers.")
 	}
 
-	fmt.Printf("RSS feed obj: %v", rss)
+	timeBetweenRequests, err := time.ParseDuration(cmd.arguments[0])
+	if err != nil {
+		return fmt.Errorf("Error parsing duration: %w", err)
+	}
 
-	return nil
+	ticker := time.NewTicker(timeBetweenRequests)
+	for ; ; <-ticker.C {
+		scrapeFeeds(s)
+	}
+
+	// return nil
 }

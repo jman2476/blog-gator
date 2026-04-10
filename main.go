@@ -66,5 +66,5 @@ func (l commands) registerAll() {
 	l.register("follow", logInMiddleware(handlerFollow))
 	l.register("following", logInMiddleware(handlerFollowing))
 	l.register("unfollow", logInMiddleware(handlerUnfollow))
-	l.register("scrape", scrapeFeeds)
+	// l.register("scrape", scrapeFeeds)
 }
