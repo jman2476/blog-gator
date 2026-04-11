@@ -1,4 +1,4 @@
-module github.com/jman2476/blog-gator
+module github.com/jman2476/gator
 
 go 1.25.0
 

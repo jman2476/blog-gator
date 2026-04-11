@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 
-	"github.com/jman2476/blog-gator/internal/database"
+	"github.com/jman2476/gator/internal/database"
 )
 
 func logInMiddleware(handler func(s *state, cmd command, user database.User) error) func(*state, command) error {
