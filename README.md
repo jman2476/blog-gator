@@ -39,7 +39,9 @@ Once the installation is complete, run `go version` to verify that it worked. If
 
 **Official installation:** Use the [official Golang download instructions](https://go.dev/doc/install) for your operating system. Again, if you are using WSL on Windows, make sure to follow the Linux instructions.
 
-Once the installation is complete, run `go version` to verify that it worked.
+Once the installation is complete, run `go version` to verify that it worked. 
+
+**Important for Linux/Windows:** For Windows, you will be asked to create a user and password for admin access to Postgres; make sure you not this for the next step. It may also indicate the port it's running on, note this. For Linux, after installing Postgres, run the command `sudo passwd postgres` and enter a password. Again, save this for later.
 
 ### Install PostgreSQL
 *You may skip this step if you already have PostgreSQL version 15 or newer installed*
@@ -51,17 +53,43 @@ Postgres, or PostgreSQL, is the database used by Gator, and is vital for its ope
 
 
 ## Installation
-
+Once Go and Postgres are installed, you can run `go install github.com/jman2476/gator` to install Gator. 
 
 ### Config Setup
+Before running Gator, you will need to setup a config file in your home directory. Create a file `~/.gatorconfig.json`, and paste the following code into it: 
+
+```
+{
+    "db_url": "database connection string"
+}
+```
+
+The database connection string you use will depend on your operating system:
+| MacOS | postgres://<your username>:@localhost:5432/gator?sslmode=disable |
+| Linux | postgres://postgres:<your postgres password>@localhost:5432/gator?sslmode=disable |
+| Windows | postgres://<your postgres username>:<your postgres password>@localhost:5432/gator?sslmode=disable  |
 
 
+## Usage
+To use gater, enter `gator [command]` in your terminal. Below is a table of commands, their arguments, and usage.
 
+```
+gator [command] [arg1] [arg2]
+```
 
-
-
-
-
+| Command | Description | Arguments |
+| - | - | - |
+| register | Register a new user | username |
+| login | Login existing user | username |
+| users | List stored users | - |
+| reset | Delete all users, feeds | - |
+| addfeed | Add RSS feed | title, url |
+| follow | Adds an existing feed to user's follows by URL | url |
+| following | Shows user's followed feeds | - |
+| unfollow | Remove feed from user's follows by URL | url |
+| feeds | Shows a list of feeds in database | - |
+| agg | Gathers posts from all followed feeds | loop_time [Format: 1m, 10s, 4d, etc] |
+| browse | Shows a list of arguments | limit [int] |
 
 ## Credits
 Lovingly handtyped by [Jeremy McKeegan](https://github.com/jman2476)
