@@ -33,7 +33,7 @@ Go, or Golang, is the language that Gator is built on, and will be necessary for
 If you already have Go but do not know what version you have installed, run `go version` in your terminal to check. You want to have version 1.26.0 or newer.
 
 **Webi install:**
-Go to [https://webinstall.dev/golang/](https://webinstall.dev/golang/), find your operating system and copy-paste the instructions into your terminal. If you are on Windows and using WSL, choose the Linux tab and use that to install. After pasting in your terminal, press enter and follow any instructions that may come up.
+Go to the [Webi Golang installation page](https://webinstall.dev/golang/), find your operating system and copy-paste the instructions into your terminal. If you are on Windows and using WSL, choose the Linux tab and use that to install. After pasting in your terminal, press enter and follow any instructions that may come up.
 
 Once the installation is complete, run `go version` to verify that it worked. If this did not work on your machine, try the official installation instructions below.
 
@@ -43,6 +43,12 @@ Once the installation is complete, run `go version` to verify that it worked.
 
 ### Install PostgreSQL
 *You may skip this step if you already have PostgreSQL version 15 or newer installed*
+Postgres, or PostgreSQL, is the database used by Gator, and is vital for its operation. If you already have Postgres installed, run `psql --version` in your terminal to verify that you have version 15 or newer. Otherwise, follow the instructions below for your operating system:
+
+**MacOS/Linux/WSL Only: Webi Install:** Go to the [Webi Postgres installation page](https://webinstall.dev/postgres/), copy paste the commands into your terminal, and press enter. Follow any prompts that come up, and then run `psql --version` to verify your installation.
+
+**Windows/All operating systems: EDB Download:** Get the link to the [installer for your operating system](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads) from EnterpriseDB, the official distributor for Postgres, and then follow the instructions in the installer and/or in the [official installation instructions](https://www.enterprisedb.com/docs/supported-open-source/postgresql/installing/) for your operating system and architecture. Once done, run `psql --version` in your terminal to verify your installation.
+
 
 ## Installation
 
